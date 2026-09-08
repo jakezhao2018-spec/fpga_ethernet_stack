@@ -50,8 +50,11 @@ frame_txd模块：
 ## Wireshark 抓包验证
 
 ![ARP 请求](doc/wireshark抓arp请求包.png)
-![ARP 应答](doc/wireshark抓larp应答包.png)
+![ARP 应答](doc/wireshark抓arp应答包.png)
 
+## UDP调试工具测试
+![UDP定时器发送1](doc/wechat_2026-06-05_171728_607.png)
+![UDP定时器发送2](doc/wechat_2026-06-10_170801_189.png)
 ## 避坑指南
 避坑1：以太网接收时钟相位问题
 采用PLL对ETH_RXD_CLK时钟做了180度相移才能正确采样。
