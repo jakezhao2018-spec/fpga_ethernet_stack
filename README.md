@@ -15,8 +15,8 @@
 
 ## 接收波形图
 
-![接收波形](土地接收完整数据包.png)
-
+![接收波形](doc/以太网帧接收完整数据包.png)
+![接收波形](doc/udp发送模块时序.png)
 ## Wireshark 抓包验证
 
 ![ARP 请求](wireshark抓larp请求包.png)
