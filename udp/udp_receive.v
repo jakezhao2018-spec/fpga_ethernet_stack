@@ -407,7 +407,8 @@ end
 always @(posedge udpr_clk or negedge udpr_rst) begin
 	if(udpr_rst == 1'b0)
 		udpr_dst_ip <= 32'd0;
-	else if(udpr_state == STATE_DONE)
+//	else if(udpr_state == STATE_DONE)
+else if(udpr_datapack_rcnt == 11'd26)
 		udpr_dst_ip <= udpr_read_dst_ip;
 end
 
@@ -415,7 +416,8 @@ end
 always @(posedge udpr_clk or negedge udpr_rst) begin
 	if(udpr_rst == 1'b0)
 		udpr_dst_mac <= 48'd0;
-	else if(udpr_state == STATE_DONE)
+//	else if(udpr_state == STATE_DONE)
+else if(udpr_datapack_rcnt == 11'd26)
 		udpr_dst_mac <= udpr_read_dst_mac;
 end
 
@@ -423,7 +425,8 @@ end
 always @(posedge udpr_clk or negedge udpr_rst) begin
 	if(udpr_rst == 1'b0)
 		udpr_dst_port <= 16'd0;
-	else if(udpr_state == STATE_DONE)
+//	else if(udpr_state == STATE_DONE)
+	else if(udpr_datapack_rcnt == 11'd26)
 		udpr_dst_port <= udpr_read_dst_port;
 end
 
@@ -571,7 +574,8 @@ end
 always @(posedge udpr_clk or negedge udpr_rst) begin
 	if(udpr_rst == 1'b0)
 		udpr_send_ready <= 1'b0;
-	else if(udpr_state == STATE_DONE)
+//	else if(udpr_state == STATE_DONE)
+	else if(udpr_datapack_rcnt == 11'd26)
 		udpr_send_ready <= 1'b1;
 end
 
