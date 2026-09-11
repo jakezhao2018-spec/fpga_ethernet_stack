@@ -84,6 +84,7 @@ reg  [10:0]eth_read_offset;	 // 以太网读bram偏移双缓冲乒乓
 //
 reg        eth_read_req_d1;
 reg        eth_read_req_d2;
+reg [8:0]  eth_read_req_d3;
 
 // 写请求打拍
 always @(posedge eth_read_clk or negedge sys_rst) begin 
@@ -95,6 +96,14 @@ always @(posedge eth_read_clk or negedge sys_rst) begin
 		eth_read_req_d1 <= eth_read_req;
 		eth_read_req_d2 <= eth_read_req_d1;
 	end
+end
+
+// 延迟发送帧间隔,压力测试的时候用，实际项目中基本不需要考虑
+always @(posedge eth_read_clk or negedge sys_rst) begin 
+	if(sys_rst == 1'b0)
+		eth_read_req_d3 <= 9'd0;
+	else 
+		eth_read_req_d3 <= {eth_read_req_d3[7:0], eth_read_req_d2};
 end
 
 // 把接收数据写入发送数据缓冲区
@@ -159,7 +168,7 @@ eth_controller eth_controller_inst(
 	.eth_write_en(eth_write_en),		 		 // 以太网写bram使能
 	.eth_read_clk(eth_read_clk),		 		 // 以太网读时钟
 	.eth_read_req(),		 	 					 		 // 以太网读请求(主动)
-	.eth_read_start(eth_read_req_d2),		 // 以太网读启动(被动)
+	.eth_read_start(eth_read_req_d3[8]),		 // 以太网读启动(被动)
 	.eth_read_ack(eth_read_ack),     		 // 以太网读应答
 	.eth_read_sel(),   	 								 // 以太网读sdram双缓冲乒乓同步
 	.eth_read_data(eth_read_data),		 	 // 以太网读bram数据
